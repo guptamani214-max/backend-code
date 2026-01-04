@@ -1,0 +1,51 @@
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const connectDB = require('./config/db'); 
+const User = require('./models/User'); 
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+connectDB(); 
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (user && user.password === password) {
+            res.json({ success: true, message: "Login Successful!" });
+        } else {
+            res.json({ success: false, message: "Galat Email ya Password" });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+});
+
+app.post('/api/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        const oldUser = await User.findOne({ email });
+        if (oldUser) {
+            return res.json({ success: false, message: "Email pehle se registered hai!" });
+        }
+
+        const newUser = new User({ username, email, password });
+        await newUser.save();
+
+        res.json({ success: true, message: "Registration Successful!" });
+
+    } catch (error) {
+        console.log("Error:", error);
+        res.status(500).json({ success: false, message: "Register fail ho gaya" });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server chal gaya! Link: http://localhost:${PORT}`);
+});
