@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="status-message"></div>
+
+  <div class="main-container">
+    <div class="main-box">
+      
+      <div class="login-box">
+        <h2>Website Login</h2>
+        <div class="tabs">
+          <button class="tab-button" onclick="showLogin()">Login</button>
+          <button class="tab-button" onclick="showRegister()">Register</button>
+        </div>
+
+        <div id="login-form" class="form-section">
+          <form onsubmit="handleLogin(event)">
+            <div class="input-group">
+              <label>Email</label>
+              <input type="email" id="login-email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="input-group">
+              <label>Password</label>
+              <input type="password" id="login-password" placeholder="*" required>
+            </div>
+            <button type="submit" class="auth-button">LOGIN</button>
+          </form>
+          <p class="switch-link">New here? <a href="#" onclick="showRegister()">Create Account</a></p>
+        </div>
+
+        <div id="register-form" class="form-section hidden">
+          <form onsubmit="handleRegister(event)">
+            <div class="input-group">
+              <label>Username</label>
+              <input type="text" id="reg-username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+              <label>Email</label>
+              <input type="email" id="reg-email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="input-group">
+              <label>Create Password</label>
+              <input type="password" id="reg-password" placeholder="......." required>
+            </div>
+            <button type="button" onclick="handleRegister(event)" class="auth-button register-btn">REGISTER</button>
+          </form>
+          <p class="switch-link">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    const msgContainer = document.getElementById("status-message");
+
+    function showMessage(msg, type) {
+      msgContainer.textContent = msg;
+      msgContainer.className = ""; 
+      msgContainer.classList.add(type); 
+      msgContainer.style.display = "block";
+
+      setTimeout(() => {
+        msgContainer.style.display = "none";
+      }, 3000);
+    }
+
+   
+    function showLogin() {
+      document.getElementById("login-form").classList.remove('hidden');
+      document.getElementById("register-form").classList.add('hidden');
+    }
+
+    function showRegister() {
+      document.getElementById("register-form").classList.remove('hidden');
+      document.getElementById("login-form").classList.add('hidden');
+    }
+
+    // --- REGISTER LOGIC ---
+  async function handleRegister(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("reg-username").value;
+
+    const email = document.getElementById("reg-email").value;
+    const password= document.getElementById("reg-password").value;
+
+    try{
+    const response =await fetch ('https://backend-code-vzgn.onrender.com/api/register',{
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body :
+      JSON.stringify({username, email, password})
+    });
+
+
+    const data = await response.json();
+
+    if(data.success){
+      alert("Registration Successful! Ab Login karein .");
+
+      showLogin();
+    }else {
+      alert('Error :' + data.message);
+    }
+    
+  }catch(error){
+    console.error ("Error :",error);
+    alert(error);
+  }
+}
+
+
+    async function handleLogin(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value.trim();
+
+    if (!email || !password) {
+        showMessage("Please fill in all fields", "error");
+        return;
+    }
+
+    try {
+        const response = await fetch('https://backend-code-vzgn.onrender.com/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            showMessage("Login Successful! Redirecting...", "success");
+            localStorage.setItem("loggedInUser", email);
+            
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1500);
+        } else {
+            showMessage(data.message, "error");
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        showMessage("Server Error: Node.js server band hai shayad?", "error");
+    }
+}
+    
+    if(localStorage.getItem("loggedInUser")) {
+        window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
