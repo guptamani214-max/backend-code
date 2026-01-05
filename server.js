@@ -17,14 +17,14 @@ app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
-       // Password compare karne ke liye bcrypt ka use karein
+       // Password compare karne ke liye bcrypt ka use kiya gya hai
 const isMatch = await bcrypt.compare(password, user.password);
 
 if (isMatch) {
-    // Login Pass ✅
+    // Login Ho gaya
     res.status(200).json({ success: true, message: "Login Successful!" });
 } else {
-    // Login Fail ❌
+    // Login Fail Ho gya 
     res.status(400).json({ success: false, message: "Wrong Password" });
 }
     } catch (error) {
