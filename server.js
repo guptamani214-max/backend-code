@@ -35,19 +35,34 @@ if (isMatch) {
 app.post('/api/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
+        
+        // 1. Check karein password aaya bhi hai ya nahi
+        if (!password) {
+            return res.status(400).json({ success: false, message: "Password zaroori hai!" });
+        }
 
         const oldUser = await User.findOne({ email });
         if (oldUser) {
-            return res.json({ success: false, message: "Email pehle se registered hai!" });
+            return res.status(400).json({ success: false, message: "Email pehle se registered hai!" });
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, email, hashedPassword});
-        await newUser.save();
 
-        res.json({ success: true, message: "Registration Successful!" });
+        // 2. Password ko encrypt karein
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log("Hashed Password Ban Gaya:", hashedPassword); // Debugging ke liye
+
+        // 3. Naya user save karein
+        const newUser = new User({
+            username: username,
+            email: email,
+            password: hashedPassword // ✅ Yahan dhyan dein
+        });
+
+        await newUser.save();
+        
+        res.status(200).json({ success: true, message: "Registration Successful!" });
 
     } catch (error) {
-        console.log("Error:", error);
+        console.log("Error aaya:", error);
         res.status(500).json({ success: false, message: "Register fail ho gaya" });
     }
 });
