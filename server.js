@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs'); 
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -34,8 +35,8 @@ app.post('/api/register', async (req, res) => {
         if (oldUser) {
             return res.json({ success: false, message: "Email pehle se registered hai!" });
         }
-
-        const newUser = new User({ username, email, password });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
 
         res.json({ success: true, message: "Registration Successful!" });
