@@ -61,9 +61,7 @@ body {
      animation-delay: -1s;
      filter: drop-shadow(0 15px 50px #000);
 }
-
-
-h2 {
+h2{
     text-align: center;
     color: #000000;
     font-weight: bolder;
@@ -72,8 +70,9 @@ h2 {
     margin-bottom: 15px;
     text-shadow: 0 0 5px #00bfff;
     
-
 }
+
+ 
 
 .tabs {
     display: flex;

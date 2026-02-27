@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,124 +7,441 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
     
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: auto;
+            overflow-y: auto;
+            background-color: #f4f7f6;
+        }
+
+        /* Navbar */
+        .Navbar {
+            height: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: linear-gradient(90deg, #ff8181, #2e31e8);
+            color: white;
+            z-index: 1000;
+        }
+
+        .Navbar h4 {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .link {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            list-style: none;
+            margin-top: 11px;
+        }
+        
+        .link a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .link a:hover {
+            opacity: 0.8;
+        }
+
+        .link h3 {
+            margin-bottom: 3px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 40px;
+            height: auto;
+        }
+       
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
+            padding: 40px 16px;
+          
+        }
+
+        .hero-container {
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .hero-section h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
             color: #333;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 40px;
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-            text-align: center;
-            width: 380px;
-            transition: transform 0.3s;
-        }
-        
-      
-        .card:hover {
-            transform: translateY(-5px);
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            line-height: 1.4;
         }
 
-        h1 { color: #4a4a4a; margin-bottom: 5px; font-weight: 600; }
-        
-        .user-email { 
-            color: #764ba2; 
-            font-weight: bold; 
-            background: #e0e0fd;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-bottom: 25px;
+        .box {
+            border-radius: 25px;
+            border: 1px solid rgb(188, 188, 188);
+            background: #fff;
+            padding-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-      
         .converter-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #e1e1e1;
+            padding: 28px 22px;
+            text-align: left;
         }
 
-        h3 { margin-top: 0; color: #555; font-size: 1.1rem; }
+        .converter-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #333;
+        }
 
         input, select {
-            width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 2px solid black;
+            border: 1px solid rgb(179, 178, 178);
             border-radius: 8px;
             box-sizing: border-box; 
             font-family: inherit;
             transition: 0.3s;
             font-weight: bold;
             font-size: medium;
-        }
-        input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
         }
-        .action-btn {
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
+
+        input:focus, select:focus {
+            border-color: #667eea;
+        }
+
+        .converter-box input {
             width: 100%;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .select-from {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .from-currency, .to-currency {
+            width: 42%;
+        }
+
+        .swap {
+            font-size: 1.8rem;
+            color: #667eea;
+            cursor: pointer;
             transition: 0.3s;
-            border: 1px solid black;
+        }
+
+        .swap:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn {
+            width: 85%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea, #767ba2);
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 0 auto;
+            display: block;
         }
 
         .action-btn:hover {
             opacity: 0.9;
-            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-        }
-
-        .logout-btn {
-            background: #ff6b6b; 
-            margin-top: 25px;
-        }
-        .logout-btn:hover {
-            background: #ee5253;
-            box-shadow: 0 5px 15px rgba(238, 82, 83, 0.4);
+            transform: translateY(-2px);
         }
 
         #result-text {
-            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 85%;
+            margin: 20px auto 0;
+            padding: 14px;
+            font-size: large;
             font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1rem;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        /* Recent Section */
+        .recent-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+           
+
+        }
+
+        .recent-card-box {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        
+        }
+
+        .recent-header h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .view-all {
+            font-size: 13px;
+            color: #6c63ff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .recent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .recent-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f7f8ff;
+            padding: 12px 14px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .recent-card:hover {
+            background: #eef2ff;
+        }
+
+        .flag {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .recent-info {
+            flex: 1;
+        }
+
+        .recent-info p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .recent-info small {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .gain {
+            font-size: 12px;
+            color: green;
+            font-weight: 600;
+        }
+
+        /* Trend Section */
+        .trend-section {
+            background: #ffffff;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .trend-header h2 {
+            font-size: 25px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .trend-box {
+            width: 90%;
+            max-width: 800px;
+            height: 350px;
+            border-radius: 16px;
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid rgb(133, 130, 130);
+            box-shadow: 0 0 15px rgba(34, 180, 180, 0.2);
+            position: relative;
+        }
+
+        /* Features Section */
+        .feature-section {
+            background: #fefefe;
+            padding: 35px 16px;
+            text-align: center;
+            border-top: 0.05px solid rgb(160, 159, 159);
+            border: 0.05px solid rgb(222, 222, 222);
+        }
+        
+
+        .feature-section h2 {
+            margin-bottom: 30px;
+            color: #333;
+            text-align: left;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(1fr);
+            gap: 20px;
+            width: 100%;
+            margin: 0 auto;
+          
+
+            
+        }
+        
+        .feature-card {
+            border: 0.5px solid rgb(207, 207, 207);
+            background: #ffffff;
+            padding: 20px 40px;
+            border-radius: 12px;
             font-weight: bold;
+            text-align: left;
+            color: #333;
+           
+        }
+        .feature-card h3{
+            font-size: medium;
+        }
+        .feature-card p{
+            font-size: small;
+            font-weight: 100;
+            margin-left: 26px;
+        }
+        @media (max-width: 768px){
+            .feature{
+                grid-template-columns: repeat(1fr);
+            }
+        }
+        
+        /* Footer */
+        .footer-section {
+          
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 10px;
+            border: 1px solid black;
+            font-size: large;
+            font-weight: bold;
+          
+        }
+
+        /* Animations */
+        .fade-section, .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* MOBILE RESPONSIVE FIX (Navbar ab gayab nahi hoga) */
+        @media (max-width: 768px) {
+            .Navbar {
+                height: auto;
+                flex-direction: column;
+                padding: 15px 10px;
+                position: static; /* Taaki dusre elements iske piche na chhupe */
+            }
+            .link {
+                display: flex;
+                flex-direction: row; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+            .main-content {
+                margin-top: 20px; /* Navbar static hone ki wajah se adjust kiya */
+            }
         }
     </style>
 </head>
 <body>
+    
+    <nav class="Navbar">
+        <h4>CurrencyConvert</h4>
+        <ul class="link">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Rates</a></li>
+            <li><a href="#">Convert</a></li>
+            <li><a href="#">Graph</a></li>
+            <li><h3 onclick="logout()"><a style="cursor: pointer;">Logout</a></h3></li>
+        </ul>
+    </nav>
 
-    <div class="card">
-        <h1>👋 Welcome ji!</h1>
-        <span id="user-display" class="user-email">Guest</span>
-        
-        <div class="converter-box">
+<main class="main-content">
+
+  <section class="hero-section">
+    <div class="hero-container">
+      <h2>🌍 Live Currency Converter</h2>
+      <p class="hero-subtitle">Convert Currency in real time with accurate exchange rates</p>
+      
+      <div class="box">                      
+         <div class="converter-box">
             <h3>💱 Live Currency Converter</h3>
+            <input type="number" id="amount" name="amount" placeholder="Enter Amount" value="1">
             
-            <input type="number" id="amount" placeholder="Enter Amount" value="1">
-            
-            <div style="display: flex; gap: 10px;">
-                <select id="from-currency">
+            <div class="select-from"> 
+                <select id="from-currency" class="from-currency">
                     <option value="USD">🇺🇸 USD</option>
                     <option value="INR">🇮🇳 INR</option>
                     <option value="EUR">🇪🇺 EUR</option>
@@ -134,61 +450,235 @@
                     <option value="AED">🇦🇪 AED</option>
                 </select>
                 
-                <select id="to-currency">
-                    <option value="INR" selected>🇮🇳 INR</option>
+                <span class="swap" onclick="swapCurrencies()">⇄</span>
+                
+                <select id="to-currency" class="to-currency">
+                    <option value="INR">🇮🇳 INR</option>
                     <option value="USD">🇺🇸 USD</option>
                     <option value="EUR">🇪🇺 EUR</option>
                     <option value="GBP">🇬🇧 GBP</option>
                     <option value="AED">🇦🇪 AED</option>
                 </select>
-            </div>
-
-            <button onclick="convertCurrency()" class="action-btn">Convert Now ⚡</button>
-            <div id="result-text">Result will appear here...</div>
+            </div>  
         </div>
-
-        <button onclick="logout()" class="action-btn logout-btn">Log Out</button>
+        
+        <button onclick="convertCurrency()" class="action-btn">Convert Now ⚡</button>
+        <p id="result-text">Result will appear here...</p>
+      </div>
     </div>
+  </section>
 
-    <script>
-        const userEmail = localStorage.getItem("loggedInUser");
-        if (!userEmail) {
-            window.location.href = "register.html";
-        } else {
-            document.getElementById("user-display").innerText = userEmail;
+  <section id="recent-section" class="recent-section fade-section">
+    <div class="recent-card-box">
+        <div class="recent-header">
+            <h4>Recent Conversions</h4>
+            <span class="view-all">View All</span>
+        </div>
+        <div id="recentList" class="recent-list">
+            </div>
+    </div>
+  </section>
+
+  <section id="trend-section" class="trend-section fade-section">
+    <div class="trend-header">
+      <h2>Exchange Rate Trends</h2>
+    </div>
+    <div class="trend-box fade-up"> 
+        <canvas id="trendChart"></canvas>
+    </div>
+  </section>
+
+  <section class="feature-section fade-section">
+    <div class="container">
+      <h2>Why use our Converter?</h2>
+      <div class="features">
+        <div class="feature-card"><h3> ⚡ 5+ Currencies Supported</h3> <p>Convert between all makor-global Currencies with eass.</p> </div>
+        <div class="feature-card"> <h3>🌐 Accurate Live Rates</h3><p>Get reat time exchange rates with lightring fest updates</p></div>
+        <div class="feature-card"><h3>🔔 Rate Alerts & Notifications</h3> <p>set alerts for your target rates, to make informed exchange.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-section">
+    <div class="container">
+        <p>© 2026 CurrencyConvert</p>
+    </div>
+  </section>
+  
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // ==========================================
+    // 1. AUTHENTICATION (ACTIVE for LIVE WEBSITE)
+    // ==========================================
+    // Yeh ensure karega ki bina login koi dashboard na dekh sake
+    const userEmail = localStorage.getItem("loggedInUser");
+    if (!userEmail) {
+        window.location.href = "register.html";
+    }
+
+    function logout() {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "register.html";
+    }
+
+    // ==========================================
+    // 2. CHART & DATA VARIABLES
+    // ==========================================
+    let trendChart = null;
+
+    // Initialize Chart
+    function initTrendChart() {
+        const canvas = document.getElementById("trendChart");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+
+        trendChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                datasets: [{
+                    label: "USD → INR",
+                    data: [82, 82.2, 82.4, 82.3, 82.6, 82.8, 83], // Default Data
+                    borderColor: "#22c55e",
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    // ==========================================
+    // 3. CURRENCY CONVERSION LOGIC
+    // ==========================================
+    function swapCurrencies() {
+        const fromSelect = document.getElementById("from-currency");
+        const toSelect = document.getElementById("to-currency");
+        
+        const temp = fromSelect.value;
+        fromSelect.value = toSelect.value;
+        toSelect.value = temp;
+    }
+
+    async function convertCurrency() {
+        const amount = document.getElementById("amount").value;
+        const from = document.getElementById("from-currency").value;
+        const to = document.getElementById("to-currency").value;
+        const resultTag = document.getElementById("result-text");
+
+        if (amount === "") {
+            alert("Please enter amount");
+            return;
         }
 
-        function logout() {
-            localStorage.removeItem("loggedInUser");
-            window.location.href = "register.html";
+        resultTag.innerText = "🔄 Computing...";
+        resultTag.style.color = "#888";
+
+        try {
+            // Live API Fetch 
+            const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+            const data = await res.json();
+            const rate = data.rates[to];
+            const total = (amount * rate).toFixed(2);
+
+            resultTag.innerText = `${amount} ${from} = ${total} ${to}`;
+            resultTag.style.color = "#27ae60";
+
+            // Graph ko live rate ke hisaab se update karega
+            updateMockHistoryChart(from, to, rate);
+
+        } catch (error) {
+            console.log("Error:", error);
+            resultTag.innerText = "⚠️ Error fetching rates";
+            resultTag.style.color = "red";
         }
+    }
 
-        async function convertCurrency() {
-            const amount = document.getElementById("amount").value;
-            const from = document.getElementById("from-currency").value;
-            const to = document.getElementById("to-currency").value;
-            const resultTag = document.getElementById("result-text");
-
-            if (amount === "") { alert("Please enter amount"); return; }
+    function updateMockHistoryChart(from, to, currentRate) {
+        if (!trendChart) return;
+        
+        const labels = [];
+        const values = [];
+        
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            labels.push(d.toISOString().split("T")[0].slice(5)); // Format MM-DD
             
-            resultTag.innerText = "🔄 Computing...";
-            resultTag.style.color = "#888";
-
-            try {
-                const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
-                const data = await res.json();
-                const rate = data.rates[to];
-                const total = (amount * rate).toFixed(2);
-                
-                resultTag.innerText = `${amount} ${from} = ${total} ${to}`;
-                resultTag.style.color = "#27ae60"; 
-            } catch (error) {
-                console.log("Error:", error);
-                resultTag.innerText = "⚠️ Error fetching rates";
-                resultTag.style.color = "red";
+            if (i === 0) {
+                values.push(currentRate); // Today's exact live rate
+            } else {
+                let variation = currentRate * (Math.random() * 0.02 - 0.01);
+                values.push((currentRate + variation).toFixed(4));
             }
         }
-    </script>
+
+        trendChart.data.labels = labels;
+        trendChart.data.datasets[0].data = values;
+        trendChart.data.datasets[0].label = `${from} → ${to}`;
+        trendChart.update();
+    }
+
+    // ==========================================
+    // 4. RECENT CONVERSIONS LOGIC
+    // ==========================================
+    function generateRecent() {
+        const list = document.getElementById("recentList");
+        list.innerHTML = "";
+
+        const conversions = [
+            { flag: "🇺🇸", from: "USD", to: "INR", rate: 82 },
+            { flag: "🇪🇺", from: "EUR", to: "USD", rate: 1.1 },
+            { flag: "🇯🇵", from: "JPY", to: "USD", rate: 0.008 }
+        ];
+
+        conversions.forEach(item => {
+            const amount = Math.floor(Math.random() * 500) + 10;
+            const result = (amount * item.rate).toFixed(2);
+
+            const card = `
+                <div class="recent-card">
+                    <span class="flag">${item.flag}</span>
+                    <div class="recent-info">
+                        <p>${amount} ${item.from} → ${result} ${item.to}</p>
+                        <small>${Math.floor(Math.random()*59)+1} mins ago</small>
+                    </div>
+                    <span class="gain">+10%</span>
+                </div>
+            `;
+            list.innerHTML += card;
+        });
+    }
+
+    // ==========================================
+    // 5. INITIALIZE ALL ON PAGE LOAD
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", () => {
+        initTrendChart();
+        generateRecent();
+
+        // Scroll Animations using IntersectionObserver
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    obs.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll(".fade-section, .fade-up").forEach(el => observer.observe(el));
+    });
+
+</script>
 
 </body>
 </html>
