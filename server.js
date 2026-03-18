@@ -41,7 +41,7 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ success: false, message: "Password zaroori hai!" });
         }
 
-        const oldUser = await User.findOne({ email });
+        const oldUser = await User.findOne({ email }).lean();
         if (oldUser) {
             return res.status(400).json({ success: false, message: "Email pehle se registered hai!" });
         }
