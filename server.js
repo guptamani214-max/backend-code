@@ -16,7 +16,7 @@ connectDB();
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).lean();
        // Password compare karne ke liye bcrypt ka use kiya gya hai
 const isMatch = await bcrypt.compare(password, user.password);
 
