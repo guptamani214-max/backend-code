@@ -16,7 +16,7 @@ connectDB();
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email }).lean();
+        const user = await User.findOne({ email });
        // Password compare karne ke liye bcrypt ka use kiya gya hai
 const isMatch = await bcrypt.compare(password, user.password);
 
@@ -41,7 +41,7 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ success: false, message: "Password zaroori hai!" });
         }
 
-        const oldUser = await User.findOne({ email }).lean();
+        const oldUser = await User.findOne({ email });
         if (oldUser) {
             return res.status(400).json({ success: false, message: "Email pehle se registered hai!" });
         }
